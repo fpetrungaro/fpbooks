@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
-console.log("Loading environment variables..")
 const envFile = `.env.${process.env.NODE_ENV || "development"}`;
+console.log("Loading environment variables with file", envFile)
 dotenv.config({ path: envFile });
 
 console.log(`A Using environment file: ${envFile}`);
@@ -14,7 +14,6 @@ import { drizzle } from "drizzle-orm/mysql2";
 
 import mysql from "mysql2/promise";
 
-console.log("MySQL2 Import", mysql)
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
