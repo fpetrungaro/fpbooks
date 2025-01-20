@@ -1,4 +1,4 @@
-name: Install Job
+name: Install And Run Unit Test
 
 on:
   workflow_call:
