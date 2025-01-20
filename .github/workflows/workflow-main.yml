@@ -14,3 +14,11 @@ jobs:
   docker-deploy:
     name: Docker deploy and integration tests
     uses: ./.github/workflows/job-deploy.yml
+    secrets:
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+      DB_USER: ${{ secrets.DB_USER }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      NODE_ENV: ${{ secrets.NODE_ENV }}
