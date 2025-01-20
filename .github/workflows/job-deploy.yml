@@ -13,4 +13,4 @@ jobs:
       - name: Docker Deploy
         run: |
           docker compose down -v || exit
-          docker compose --env-file .env.production up --build -d || exit
+          docker compose --env-file /home/runner/work/fpbooks/.env.production up --build -d || exit
