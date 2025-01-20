@@ -19,7 +19,9 @@ app.use("/api/books", bookRoutes);
 // auth routes
 app.use("/api/auth", authRoutes);
 
-setupSwagger(app);
-
+if (process.env.NODE_ENV === "development") {
+      // Enable Swagger documentation only in development environment
+    setupSwagger(app);
+}
 
 export default app;
