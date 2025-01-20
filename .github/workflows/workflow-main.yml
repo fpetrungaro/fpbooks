@@ -13,5 +13,4 @@ jobs:
 
   docker-deploy:
     name: Docker deploy and integration tests
-    needs: install
     uses: ./.github/workflows/job-deploy.yml
