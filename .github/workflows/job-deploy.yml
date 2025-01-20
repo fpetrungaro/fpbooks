@@ -41,8 +41,24 @@ jobs:
       - name: Check Running Containers
         run: docker ps -a
 
-      - name: wait for MySQL
-        run: sleep 60
+      - name: Wait for MySQL to be ready
+        env:
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_USER: ${{ secrets.DB_USER }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          NODE_ENV: ${{ secrets.NODE_ENV }}
+        run: |
+          echo "Waiting for MySQL to be ready..."
+          for i in {1..30}; do
+            mysqladmin ping -h mysql --user=$$DB_USER --password=$$DB_PASSWORD --silent && echo "MySQL is up!" && exit 0
+            echo "Waiting for MySQL..."
+            sleep 2
+          done
+          echo "MySQL failed to start" && exit 1
+
 
       - name: Debug network issues
         run: |
@@ -51,18 +67,6 @@ jobs:
           cat /etc/hosts
           docker ps
           docker logs book-db
-
-      - name: Wait for MySQL to be ready
-        env:
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-        run: |
-          for i in {1..30}; do
-            nc -z "$DB_HOST" "$DB_PORT" && echo "ready for connections!" && exit 0
-            echo "Waiting for MySQL at $DB_HOST:$DB_PORT..."
-            sleep 2
-          done
-          echo "MySQL failed to start" && exit 1
 
       - name: Checkout repository
         uses: actions/checkout@v3
