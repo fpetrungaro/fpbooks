@@ -1,0 +1,10 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN echo "Installing dependencies..." && npm install
+
+COPY . .
+
+CMD ["npm", "run", "migrate:prod"]

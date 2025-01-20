@@ -1,2 +1,10 @@
 # IDE folders
 .idea/
+
+# Environment
+*.env.*
+
+# dependencies
+node_modules
+
+dist

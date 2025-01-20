@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  database:
+    image: mysql:8
+    container_name: book-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_SSL: DISABLED
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  api:
+    build: .
+    container_name: book-api
+    restart: always
+    depends_on:
+      - database
+    ports:
+      - "3001:3000"
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_PORT: ${DB_PORT}
+      JWT_SECRET: fpetrungarokey
+    command: ["sh", "-c", "npm run migrate:prod && npm run start"]
+
+volumes:
+  db_data:
