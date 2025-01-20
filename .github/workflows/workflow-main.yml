@@ -14,6 +14,7 @@ jobs:
   deploy:
     name: Docker deploy and integration tests
     uses: ./.github/workflows/job-deploy.yml
+    needs: install
     secrets:
       DB_HOST: ${{ secrets.DB_HOST }}
       DB_NAME: ${{ secrets.DB_NAME }}

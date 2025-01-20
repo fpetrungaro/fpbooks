@@ -5,7 +5,7 @@ const SECRET_KEY = process.env.JWT_SECRET || "fpetrungaro_secret";
 
 export const authenticateJWT = (req: Request, res: Response, next: NextFunction): void => {
   const token = req.header("Authorization")?.split(" ")[1];
-
+  console.log("calling authentication middleware");
   if (!token) {
     res.status(401).json({ message: "Unauthorized" });
     return;
