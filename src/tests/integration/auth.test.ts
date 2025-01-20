@@ -4,8 +4,6 @@ let token: string;
 
 describe("Authentication Tests", () => {
 
-
-describe("Authentication Tests", () => {
   const uniqueUsername = `testfabio_${Date.now()}`; //username unique per test run
   console.log("username", uniqueUsername)
   it("should register a new user", async () => {
@@ -26,7 +24,7 @@ describe("Authentication Tests", () => {
     expect(res.body).toHaveProperty("token");
     token = res.body.token;
   });
-});
+
 
   it("should access a protected route with JWT", async () => {
     const res = await request(app)
