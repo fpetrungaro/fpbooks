@@ -50,6 +50,14 @@ jobs:
         run: npm install
 
       - name: Run integration tests
+        env:
+          DB_HOST: database
+          DB_NAME: fp_books_db
+          DB_PASSWORD: M2_k@WFc-VzgEp2CZ4xqD_as
+          DB_PORT: 3306
+          DB_USER: root
+          JWT_SECRET: fpetrungaro_secret
+          NODE_ENV: production
         run: |
           npm run test:integration
 
