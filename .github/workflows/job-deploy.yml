@@ -41,7 +41,16 @@ jobs:
       - name: Check Running Containers
         run: docker ps -a
 
-      - name: Wait for MySQL to be ready
+      - name: Debug network issues
+        run: |
+          ping -c 4 mysql || true
+          nslookup mysql || true
+          cat /etc/hosts
+          docker ps
+          docker logs book-db
+
+
+      - name: Run integration tests inside container
         env:
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_NAME: ${{ secrets.DB_NAME }}
@@ -51,45 +60,9 @@ jobs:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           NODE_ENV: ${{ secrets.NODE_ENV }}
         run: |
-          echo "Waiting for MySQL to be ready..."
-          for i in {1..30}; do
-            mysqladmin ping -h mysql --user=$$DB_USER --password=$$DB_PASSWORD --silent && echo "MySQL is up!" && exit 0
-            echo "Waiting for MySQL..."
-            sleep 2
-          done
-          echo "MySQL failed to start" && exit 1
+          echo "Running integration tests inside container..."
+          docker exec book-api npm run test:integration
 
-
-      - name: Debug network issues
-        run: |
-          ping -c 4 mysql || true
-          nslookup mysql || true
-          cat /etc/hosts
-          docker ps
-          docker logs book-db
-
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run integration tests
-        env:
-          DB_HOST: database
-          DB_NAME: fp_books_db
-          DB_PASSWORD: M2_k@WFc-VzgEp2CZ4xqD_as
-          DB_PORT: 3306
-          DB_USER: root
-          JWT_SECRET: fpetrungaro_secret
-          NODE_ENV: production
-        run: |
-          npm run test:integration
 
       - name: Run AWS deploy
         run: |
