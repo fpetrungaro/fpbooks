@@ -1,4 +1,4 @@
-name: API Tests with JWT
+name: Main workflow
 
 on:
   push:
