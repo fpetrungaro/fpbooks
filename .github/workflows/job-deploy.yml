@@ -44,6 +44,18 @@ jobs:
       - name: wait for MySQL
         run: sleep 30
 
+      - name: Wait for MySQL to be ready
+        env:
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+        run: |
+          for i in {1..30}; do
+            nc -z "$DB_HOST" "$DB_PORT" && echo "MySQL is up!" && exit 0
+            echo "Waiting for MySQL at $DB_HOST:$DB_PORT..."
+            sleep 2
+          done
+          echo "MySQL failed to start" && exit 1
+
       - name: Debug network issues
         run: |
           ping -c 4 mysql || true
@@ -51,6 +63,8 @@ jobs:
           cat /etc/hosts
           docker ps
           docker logs book-db
+          
+
 
       - name: Checkout repository
         uses: actions/checkout@v3
