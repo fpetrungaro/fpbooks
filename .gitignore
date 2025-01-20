@@ -4,6 +4,7 @@
 # Environment
 .env.production
 .env.development
+.env.test
 
 # dependencies
 node_modules

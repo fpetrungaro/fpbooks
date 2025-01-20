@@ -13,8 +13,8 @@ const router = express.Router();
  *       200:
  *         description: List of books
  */
-router.get("/", getAllBooks);
-router.get("/:id", getBookById);
+router.get("/", authenticateJWT, getAllBooks);
+router.get("/:id", authenticateJWT, getBookById);
 router.post("/", authenticateJWT, createBook);
 router.put("/:id", authenticateJWT, updateBook);
 router.delete("/:id", authenticateJWT, deleteBook);

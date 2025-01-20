@@ -12,7 +12,7 @@ console.log("A DB port: ", process.env.DB_PORT);
 
 import { drizzle } from "drizzle-orm/mysql2";
 
-import mysql from "mysql2";
+import mysql from "mysql2/promise";
 
 console.log("MySQL2 Import", mysql)
 const pool = mysql.createPool({
@@ -21,6 +21,6 @@ const pool = mysql.createPool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   port: Number(process.env.DB_PORT),
-}).promise();
+});
 
 export const db = drizzle(pool);

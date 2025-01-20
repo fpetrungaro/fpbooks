@@ -20,6 +20,7 @@ export const getBookById = async (req: Request, res: Response) => {
 };
 
 export const createBook = async (req: Request, res: Response) => {
+  console.log("create book req body", req.body);
   const newBook = await bookService.createBook(req.body);
   res.status(201).json(newBook);
 };

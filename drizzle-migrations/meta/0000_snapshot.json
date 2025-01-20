@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "a7629d4c-d794-431b-8802-08152ea40c2e",
+  "id": "fa0faa42-bf5f-4148-adb2-334ca6cf0b2d",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "books": {
@@ -82,7 +82,7 @@
         },
         "password": {
           "name": "password",
-          "type": "varchar(50)",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
