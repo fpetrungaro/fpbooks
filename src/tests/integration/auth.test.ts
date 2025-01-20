@@ -4,13 +4,19 @@ let token: string;
 
 describe("Authentication Tests", () => {
 
-  const uniqueUsername = `testfabio_${Date.now()}`; //username unique per test run
+  let uniqueUsername: string;
+  beforeAll(async () => {
+      uniqueUsername = `testfabio_${Date.now()}`; //username unique per test run
+
+  })
+
   console.log("username", uniqueUsername)
   it("should register a new user", async () => {
     const res = await request(app)
       .post("/api/auth/register")
       .send({ username: uniqueUsername, password: "password123" });
-    console.log("response", res.body);
+    console.log("response body ", res.body);
+    console.log("response status code", res.body);
 
     expect([201, 200]).toContain(res.statusCode);
   });

@@ -6,7 +6,7 @@ const healthService = new HealthService();
 
 export let isHealthy = async (req: Request, res: Response) => {
   console.log("health check")
-  const healthyResponse = healthService.isHealthy();
+  const healthyResponse = await healthService.isHealthy();
   if (!healthyResponse) {
     res.send("<h1 style='font-size: 30px; color: red;'>Database is not healthy!</h1>");
   } else {

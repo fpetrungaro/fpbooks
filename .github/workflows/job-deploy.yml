@@ -41,8 +41,8 @@ jobs:
       - name: Check Running Containers
         run: docker ps -a
 
-      - name: wait for MySQL
-        run: sleep 60
+      - name: wait for MySQL - improve this
+        run: sleep 30
 
       - name: Debug network issues
         run: |

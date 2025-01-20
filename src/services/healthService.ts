@@ -4,7 +4,7 @@ import {eq} from "drizzle-orm";
 import mysql from "mysql2";
 
 export class HealthService {
-    isHealthy(): boolean {
+    async isHealthy(): Promise<boolean> {
         let connection;
         try {
             // Create a database connection
@@ -30,22 +30,5 @@ export class HealthService {
                 connection.end();
             }
         }
-    }
-
-    async getBookById(id: number) {
-        console.log("Get book by id", id);
-        return db.select().from(books).where(eq(books.id, id)).execute();
-    }
-
-    async createBook(bookData: any) {
-        return db.insert(books).values(bookData).execute();
-    }
-
-    async updateBook(id: number, bookData: any) {
-        return db.update(books).set(bookData).where(eq(books.id, id)).execute();
-    }
-
-    async deleteBook(id: number) {
-        return db.delete(books).where(eq(books.id, id)).execute();
     }
 }
