@@ -8,5 +8,5 @@ on:
 
 jobs:
   install:
-    name: Install
+    name: NPM Install and unit test
     uses: ./.github/workflows/job-install.yml
