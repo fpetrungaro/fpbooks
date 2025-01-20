@@ -37,3 +37,11 @@ jobs:
         run: |
           docker compose down -v || exit
           docker compose up --build -d || exit
+
+      - name: Run integration tests
+        run: |
+          npm run test:integration
+
+      - name: Run AWS deploy
+        run: |
+          echo "TODO" 

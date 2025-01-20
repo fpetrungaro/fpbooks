@@ -5,6 +5,8 @@
   "scripts": {
     "migrate:dev" : "NODE_ENV=development drizzle-kit generate && NODE_ENV=development drizzle-kit migrate",
     "test": "jest",
+    "test:unit": "npx jest --testPathPattern=tests/unit",
+    "test:integration": "npx jest --testPathPattern=tests/integration",
     "start": "NODE_ENV=development ts-node src/server.ts",
     "dev": "NODE_ENV=development nodemon src/server.ts",
     "migrate:prod" : "NODE_ENV=production drizzle-kit generate && NODE_ENV=production drizzle-kit migrate",
