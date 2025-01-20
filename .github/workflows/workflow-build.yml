@@ -1,0 +1,15 @@
+name: API Tests with JWT
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  install:
+    name: Install
+    uses: ./.github/workflows/job-install.yaml
+  test-unit:
+    name: Test-Unit
+    uses: ./.github/workflows/job-test-unit.yaml

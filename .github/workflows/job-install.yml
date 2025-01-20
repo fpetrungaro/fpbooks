@@ -1,15 +1,11 @@
-name: API Tests with JWT
+name: Install Job
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  workflow_call:
 
 jobs:
-  test:
+  install:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3

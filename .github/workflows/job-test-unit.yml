@@ -1,0 +1,11 @@
+name: Unit Test Job
+
+on:
+  workflow_call:
+
+jobs:
+  test-unit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Test
+        run: npx jest --testPathPattern=tests/unit
