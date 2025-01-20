@@ -2,6 +2,19 @@ name: Docker deploy
 
 on:
   workflow_call:
+    secrets:
+      DB_HOST:
+        required: true
+      DB_NAME:
+        required: true
+      DB_PASSWORD:
+        required: true
+      DB_PORT:
+        required: true
+      DB_USER:
+        required: true
+      JWT_SECRET:
+        required: true
 
 jobs:
   docker-deploy:
@@ -11,6 +24,14 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Docker Deploy
+        env:
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_USER: ${{ secrets.DB_USER }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          NODE_ENV: ${{ secrets.NODE_ENV }}
         run: |
           docker compose down -v || exit
-          docker compose --env-file /home/runner/work/fpbooks/.env.production up --build -d || exit
+          docker compose up --build -d || exit
