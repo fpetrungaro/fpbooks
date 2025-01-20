@@ -19,4 +19,4 @@ jobs:
         run: npm install
 
       - name: Run Test
-        run: npx jest --testPathPattern=tests/unit
+        run: npm run test:unit
