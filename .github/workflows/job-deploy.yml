@@ -51,7 +51,7 @@ jobs:
 
       - name: Run integration tests
         env:
-          DB_HOST: 127.0.0.1
+          DB_HOST: book-db
           DB_NAME: fp_books_db
           DB_PASSWORD: M2_k@WFc-VzgEp2CZ4xqD_as
           DB_PORT: 3306
