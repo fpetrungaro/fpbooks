@@ -9,7 +9,7 @@ on:
 jobs:
   install:
     name: NPM Install and unit test
-    uses: ./.github/workflows/job-install.yml
+    uses: ./.github/workflows/job-build.yml
 
   deploy:
     name: Docker deploy and integration tests

@@ -1,4 +1,4 @@
-name: Install And Run Unit Test
+name: Build And Run Unit Test
 
 on:
   workflow_call:
