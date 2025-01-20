@@ -12,4 +12,5 @@ jobs:
     uses: ./.github/workflows/job-install.yml
   test-unit:
     name: Test-Unit
+    needs: install
     uses: ./.github/workflows/job-test-unit.yml
