@@ -50,7 +50,7 @@ jobs:
           nslookup mysql || true
           cat /etc/hosts
           docker ps
-          docker logs database
+          docker logs book-db
 
       - name: Checkout repository
         uses: actions/checkout@v3
