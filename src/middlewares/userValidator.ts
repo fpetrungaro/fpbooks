@@ -1,5 +1,6 @@
 import {body, validationResult} from "express-validator";
 import {Request, Response, NextFunction} from "express";
+import logger from "../utils/logger";
 
 // Middleware for validating user registration
 export const validateUserRegistration = [
@@ -18,7 +19,7 @@ export const validateUserRegistration = [
         //TODO: validate pattern as well
         .withMessage("Password must be at least 6 characters"),
     (req: Request, res: Response, next: NextFunction) => {
-        console.debug("Incoming req body", req.body);
+        logger.debug("Incoming req body", req.body);
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return next({
