@@ -6,13 +6,13 @@ Book Management API - one App to read them all
 
 ## Main Features
 
-- User management and Authorization
-- Full Github pipeline with build, unit tests, docker deploy, integration tests for deployment readiness
-- Rate limiting to limit API calls
-- Advanced search with pagination, filtering and sorting
-- Routine script/generateData.sql to populate Books table
-- Production and dev environment clearly distinguished
-
+- [User management and Authorization](src/services/userService.ts)
+- [Full GitHub pipeline with build, unit tests, docker deploy, integration tests for deployment readiness](.github/workflows/workflow-main.yml)
+- [Rate limiting to limit API calls](src/services/bookService.ts)
+- [Advanced search with pagination, filtering and sorting](src/services/bookService.ts)
+- [Mysql Routine generateData.sql to populate Books table](script/generateData.sql)
+- [Production and dev environments clearly separated](.env.development)
+- [Swagger docs](src/config/swagger.ts)
 
 ## Project Structure
 
@@ -27,7 +27,7 @@ src/
  ├── tests/           # Unit & Integration Tests
  ├── app.ts           # Express App
  ├── server.ts        # Server Entry
- ├── utils.ts         # Server Entry
+ ├── utils.ts         # Utilities
 ```
 DB diagram in [docs](docs/db_digram.png)
 
@@ -142,4 +142,6 @@ Available at
 https://github.com/fpetrungaro/fpbooks/actions/workflows/workflow-main.yml
 
 Can be manually run (Main workflow)
+
+![github_pipeline](docs/github_pipeline.png)
 

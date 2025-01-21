@@ -12,5 +12,8 @@ node_modules
 # dist folder
 dist
 
+# logs
+logs
+
 # drizzle-migrations - could cause conflicts
 /drizzle-migrations/meta/

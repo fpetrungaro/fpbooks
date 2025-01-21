@@ -1,9 +1,7 @@
 import {BookService} from "../../services/bookService";
 import {books} from "../../models/book";
-import {eq} from "drizzle-orm";
 
 // Mocking db module
-
 jest.mock("../../config/db", () => ({
     db: {
         select: jest.fn(() => ({

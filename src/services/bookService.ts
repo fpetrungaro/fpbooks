@@ -1,6 +1,7 @@
 import {db} from "../config/db";
 import {books} from "../models/book";
 import {and, like, gte, lte, desc, asc, eq} from "drizzle-orm";
+import logger from "../utils/logger";
 
 const MAX_LIMIT = 1000;
 
@@ -72,20 +73,22 @@ export class BookService {
 
 
     async getBookById(id: number) {
-        console.log("service.getBookById: ", id);
+        logger.debug("service.getBookById: ", id);
         return db.select().from(books).where(eq(books.id, id)).execute();
     }
 
     async createBook(bookData: any) {
-        console.log("service.createBook: ", bookData);
+        logger.debug("service.createBook: ", bookData);
         return db.insert(books).values(bookData).execute();
     }
 
     async updateBook(id: number, bookData: any) {
+        logger.debug("service.updateBook: ", id, bookData);
         return db.update(books).set(bookData).where(eq(books.id, id)).execute();
     }
 
     async deleteBook(id: number) {
+        logger.debug("service.deleteBook: ", id);
         return db.delete(books).where(eq(books.id, id)).execute();
     }
 }

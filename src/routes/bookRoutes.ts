@@ -10,6 +10,7 @@ import {authenticateJWT} from "../middlewares/authMiddleware";
 import {validateBook} from "../middlewares/bookValidator";
 import {errorHandler} from "../middlewares/errorHandler";
 import {apiLimiter} from "../middlewares/reteLimiter";
+import {validateBookQueryParams} from "../middlewares/bookQueryValidator";
 
 const router = express.Router();
 
@@ -91,7 +92,7 @@ const router = express.Router();
  *       500:
  *         description: Internal server error
  */
-router.get("/", apiLimiter, authenticateJWT, getBooks);
+router.get("/", apiLimiter, authenticateJWT, validateBookQueryParams, getBooks);
 
 /**
  * @swagger

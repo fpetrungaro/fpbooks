@@ -2,14 +2,16 @@ import {body, validationResult} from "express-validator";
 import {NextFunction, Request, Response} from "express";
 import {DATE_PATTERN} from "./validationConstants";
 
-export const validateBook = [
+export const validateBook    = [
     body("title")
         .trim()
+        .escape() // sanitize input
         .notEmpty().withMessage("Title is required")
         .isLength({max: 50}).withMessage("Title must be at most 50 characters"),
 
     body("author")
         .trim()
+        .escape() // sanitize input
         .notEmpty().withMessage("Author is required")
         .isLength({max: 50}).withMessage("Author must be at most 50 characters"),
 
@@ -19,6 +21,7 @@ export const validateBook = [
 
     body("genre")
         .trim()
+        .escape() // sanitize input
         .notEmpty().withMessage("Genre is required")
         .isLength({max: 20}).withMessage("Genre must be at most 20 characters"),
     (req: Request, res: Response, next: NextFunction) => {

@@ -3,17 +3,18 @@ import { users } from "../models/user";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { eq } from "drizzle-orm";
+import logger from "../utils/logger";
 
 const SECRET_KEY = process.env.JWT_SECRET || "fpetrungaro_secret";
 
 export class UserService {
   async register(username: string, password: string) {
-    console.log("Registering user", username);
+    logger.debug("Registering user", username);
     // Check if the user already exists
     const existingUser = await db.select().from(users).where(eq(users.username, username)).execute();
 
     if (existingUser.length > 0) {
-      console.log(`User "${username}" already exists. Skipping registration.`);
+      logger.debug(`User "${username}" already exists. Skipping registration.`);
       return { message: "User already exists" };
     }
 

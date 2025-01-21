@@ -1,5 +1,5 @@
 import { validateBook } from "../../middlewares/bookValidator";
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 
 describe("Book Validation Middleware", () => {
