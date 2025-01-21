@@ -27,6 +27,7 @@ src/
  ├── tests/           # Unit & Integration Tests
  ├── app.ts           # Express App
  ├── server.ts        # Server Entry
+ ├── utils.ts         # Server Entry
 ```
 DB diagram in [docs](docs/db_digram.png)
 
