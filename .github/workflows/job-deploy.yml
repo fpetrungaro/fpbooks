@@ -42,7 +42,7 @@ jobs:
         run: docker ps -a
 
       - name: wait for MySQL - improve this
-        run: sleep 120
+        run: sleep 30
 
       - name: Debug network issues
         run: |
