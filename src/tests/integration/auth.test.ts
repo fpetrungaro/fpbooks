@@ -2,7 +2,7 @@ import request from "supertest";
 import app from "../../app";
 let token: string;
 
-describe("Authentication Tests", () => {
+describe("Authentication Integration Tests", () => {
 
   let uniqueUsername: string;
   beforeAll(async () => {
@@ -46,7 +46,7 @@ describe("Authentication Tests", () => {
 
 });
 
-describe("Authentication Tests with validation errors", () => {
+describe("Authentication Integration Tests - Validations", () => {
   it("should return a validation error for missing username", async () => {
     const res = await request(app)
       .post("/api/auth/register")

@@ -1,5 +1,6 @@
 import {body, validationResult} from "express-validator";
 import {NextFunction, Request, Response} from "express";
+import {DATE_PATTERN} from "./validationConstants";
 
 export const validateBook = [
     body("title")
@@ -14,7 +15,7 @@ export const validateBook = [
 
     body("publishedDate")
         .notEmpty().withMessage("Published date is required")
-        .matches(/^\d{4}-\d{2}-\d{2}$/).withMessage("Published date must be in YYYY-MM-DD format"),
+        .matches(DATE_PATTERN).withMessage("Published date must be in YYYY-MM-DD format"),
 
     body("genre")
         .trim()

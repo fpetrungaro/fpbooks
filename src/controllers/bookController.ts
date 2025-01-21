@@ -3,10 +3,39 @@ import { BookService } from "../services/bookService";
 
 const bookService = new BookService();
 
-export const getAllBooks = async (req: Request, res: Response) => {
-  console.log("controller.getAllBooks");
-  const books = await bookService.getAllBooks();
-  res.json(books);
+export const getBooks = async (req: Request, res: Response) => {
+    console.log("controller.getBooks");
+    const {
+        page,
+        limit,
+        sortBy,
+        order,
+        title,
+        genre,
+        author,
+        publishedFrom,
+        publishedTo
+    } = req.query;
+
+    const publishedFromDate = req.query.publishedFrom ? new Date(req.query.publishedFrom as string) : null;
+    const publishedToDate = req.query.publishedTo ? new Date(req.query.publishedTo as string) : null;
+    const books = await bookService.getBooks({
+
+        page: page ? parseInt(page as string, 10) : undefined,
+        limit: limit ? parseInt(limit as string, 10) : undefined,
+        sortBy: sortBy as string,
+        order: order as string,
+        filters: {
+            title: title as string,
+            genre: genre as string,
+            author: author as string,
+            publishedFrom: publishedFromDate,
+            publishedTo: publishedToDate,
+        },
+    });
+
+  res.status(200).json(books);
+
 };
 
 export const getBookById = async (req: Request, res: Response) => {

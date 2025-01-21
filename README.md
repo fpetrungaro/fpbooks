@@ -2,23 +2,15 @@
 
 ## Introduction
 
-Book API
+Book API - one App to read them all
 
 ## Main Features
 
-
-## Getting started
-
-### Pre-requisites
-
-Node and NPM installed
-
-### Project setup
-
-Install the dependencies
-```shell
-npm install
-```
+- Production and dev environment clearly distinguished
+- User management and Authorization
+- Full Github pipeline with build, unit tests, docker deploy, integration tests for deployment readiness
+- Rate limiting to limit API calls
+- Advanced search with pagination, filtering and sorting
 
 ## Project Structure
 
@@ -34,3 +26,19 @@ src/
  ├── app.ts           # Express App
  ├── server.ts        # Server Entry
 ```
+
+## Getting started
+
+### Pre-requisites
+
+Node and NPM installed
+
+### Project setup
+
+Install the dependencies
+```shell
+npm install
+```
+
+
+### Tests

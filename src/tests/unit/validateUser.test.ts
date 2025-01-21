@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import { validateUserRegistration } from "../../middlewares/userValidator";
 import { validationResult } from "express-validator";
 

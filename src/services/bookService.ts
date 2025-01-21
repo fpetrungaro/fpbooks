@@ -1,28 +1,91 @@
-import { db } from "../config/db";
-import { books } from "../models/book";
-import {eq} from "drizzle-orm";
+import {db} from "../config/db";
+import {books} from "../models/book";
+import {and, like, gte, lte, desc, asc, eq} from "drizzle-orm";
+
+const MAX_LIMIT = 1000;
 
 export class BookService {
-  async getAllBooks() {
-    console.log("service.getAllBooks");
-    console.log("Get all books");
-    return db.select().from(books);
-  }
+    async getBooks(
+        {
+            page = 1,
+            limit = 10,
+            sortBy = "title",
+            order = "asc",
+            filters = {},
+        }: {
+            page?: number;
+            limit?: number;
+            sortBy?: string;
+            order?: string;
+            filters?: {
+                title?: string;
+                genre?: string;
+                author?: string;
+                publishedFrom?: Date;
+                publishedTo?: Date;
+            };
+        }): Promise<any> {
+        // hard limit
+        const actualLimit = Math.min(limit, MAX_LIMIT);
+        const offset = (page - 1) * actualLimit;
+        let conditions = [];
 
-  async getBookById(id: number) {
-    console.log("service.getBookById", id);
-    return db.select().from(books).where(eq(books.id, id)).execute();
-  }
+        if (filters.title) {
+            conditions.push(like(books.title, `%${filters.title}%`));
+        }
 
-  async createBook(bookData: any) {
-    return db.insert(books).values(bookData).execute();
-  }
+        if (filters.genre) {
+            conditions.push(like(books.genre, `%${filters.genre}%`));
+        }
 
-  async updateBook(id: number, bookData: any) {
-    return db.update(books).set(bookData).where(eq(books.id, id)).execute();
-  }
+        if (filters.author) {
+            conditions.push(like(books.author, `%${filters.author}%`));
+        }
 
-  async deleteBook(id: number) {
-    return db.delete(books).where(eq(books.id, id)).execute();
-  }
+        if (filters.publishedFrom && filters.publishedTo) {
+            conditions.push(
+                and(
+                    gte(books.publishedDate, filters.publishedFrom),
+                    lte(books.publishedDate, filters.publishedTo)
+                )
+            );
+        } else if (filters.publishedFrom) {
+            conditions.push(
+                gte(books.publishedDate, filters.publishedFrom),
+            );
+        } else if (filters.publishedTo) {
+            conditions.push(
+                lte(books.publishedDate, filters.publishedTo),
+            );
+        }
+
+        const query = db
+            .select()
+            .from(books)
+            .where(conditions.length > 0 ? and(...conditions) : undefined)
+            .orderBy(order === "desc" ? desc(books[sortBy]) : asc(books[sortBy]))
+            .limit(actualLimit)
+            .offset(offset);
+
+        return query.execute();
+    }
+
+
+    async getBookById(id: number) {
+        console.log("service.getBookById: ", id);
+        return db.select().from(books).where(eq(books.id, id)).execute();
+    }
+
+    async createBook(bookData: any) {
+        console.log("service.createBook: ", bookData);
+        return db.insert(books).values(bookData).execute();
+    }
+
+    async updateBook(id: number, bookData: any) {
+        return db.update(books).set(bookData).where(eq(books.id, id)).execute();
+    }
+
+    async deleteBook(id: number) {
+        return db.delete(books).where(eq(books.id, id)).execute();
+    }
 }
