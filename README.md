@@ -2,19 +2,21 @@
 
 ## Introduction
 
-Book API - one App to read them all
+Book Management API - one App to read them all
 
 ## Main Features
 
-- Production and dev environment clearly distinguished
 - User management and Authorization
 - Full Github pipeline with build, unit tests, docker deploy, integration tests for deployment readiness
 - Rate limiting to limit API calls
 - Advanced search with pagination, filtering and sorting
+- Routine script/generateData.sql to populate Books table
+- Production and dev environment clearly distinguished
+
 
 ## Project Structure
 
-```shell
+```text
 src/
  ├── controllers/     # API Controllers
  ├── routes/          # API Routes
@@ -25,6 +27,21 @@ src/
  ├── tests/           # Unit & Integration Tests
  ├── app.ts           # Express App
  ├── server.ts        # Server Entry
+```
+DB diagram in [docs](docs/db_digram.png)
+
+## Tech Stack
+
+```text
+Language:  TypeScript
+Framework: Express.js
+Database: MySQL
+ORM: Drizzle ORM
+Validation: Express-validator
+Logging: Winston
+Testing: Jest + Supertest
+Authentication: JWT
+Containerization: Docker
 ```
 
 ## Getting started
@@ -40,5 +57,88 @@ Install the dependencies
 npm install
 ```
 
+### Before starting the app for the first time
 
-### Tests
+Create Mysql database, e.g.
+```sql
+CREATE DATABASE fp_books_db;
+```
+
+Run migrations
+
+```shell
+npm run migration:development
+```
+### Starting the app in dev
+
+```shell
+npm run dev
+```
+
+Connect to
+
+```http request
+http://localhost:3000/
+```
+
+Swagger documentation available at
+```http request
+http://localhost:3000/api-docs
+```
+![swagger](docs/swagger.png)
+
+## Tests
+
+Run integration + unit test
+```shell
+npm test
+```
+
+Run unit test
+```shell
+npm test:unit
+```
+
+Run integration test
+```shell
+npm test:integration
+```
+
+### First time running the tests
+First time before running the test:
+
+Create Mysql database, e.g.
+```sql
+CREATE DATABASE test_fp_books_db;
+```
+
+```sh
+NODE_ENV=test drizzle-kit generate && NODE_ENV=test drizzle-kit migrate
+```
+
+## Docker local deployment (production mode)
+
+### Pre-requisite
+Docker installed
+
+### Commands
+
+```shell
+docker-compose down -v
+docker compose --env-file .env.production up --build -d
+```
+
+### Connect to deployed app
+Use 3001 port, for example
+
+```text
+http://localhost:3000/api-docs
+```
+
+
+## Github pipeline
+Available at
+https://github.com/fpetrungaro/fpbooks/actions/workflows/workflow-main.yml
+
+Can be manually run (Main workflow)
+
