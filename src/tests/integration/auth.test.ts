@@ -7,7 +7,6 @@ describe("Authentication Tests", () => {
   let uniqueUsername: string;
   beforeAll(async () => {
       uniqueUsername = `testfabio_${Date.now()}`; //username unique per test run
-
   })
 
   console.log("username", uniqueUsername)
@@ -43,6 +42,34 @@ describe("Authentication Tests", () => {
   it("should fail to access a protected route without JWT", async () => {
     const res = await request(app).get("/api/books");
     expect(res.statusCode).toBe(401);
+  });
+
+});
+
+describe("Authentication Tests with validation errors", () => {
+  it("should return a validation error for missing username", async () => {
+    const res = await request(app)
+      .post("/api/auth/register")
+      .send({ password: "password123" });
+
+    expect(res.statusCode).toBe(400);
+    expect(res.body.message).toBe("Validation error");
+    expect(res.body.errors).toEqual(expect.arrayContaining([
+      expect.objectContaining({ path: "username", msg: "Username is required" }),
+      expect.objectContaining({ path: "username", msg: "Username must be at least 3 characters" }),
+    ]));
+  });
+
+  it("should return a validation error for a short password", async () => {
+    const res = await request(app)
+      .post("/api/auth/register")
+      .send({ username: "fabio", password: "123" });
+
+    expect(res.statusCode).toBe(400);
+    expect(res.body.message).toBe("Validation error");
+    expect(res.body.errors).toEqual(expect.arrayContaining([
+      expect.objectContaining({ path: "password", msg: "Password must be at least 6 characters" }),
+    ]));
   });
 
 });

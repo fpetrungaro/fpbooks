@@ -23,6 +23,7 @@ export const createBook = async (req: Request, res: Response) => {
   console.log("create book req body", req.body);
   const newBook = await bookService.createBook(req.body);
   res.status(201).json(newBook);
+  console.log("Book created successfully!");
 };
 
 export const updateBook = async (req: Request, res: Response) => {

@@ -5,6 +5,7 @@ import bookRoutes from "./routes/bookRoutes";
 import { setupSwagger } from "./config/swagger";
 import healthRoutes from "./routes/healthRoutes";
 import authRoutes from "./routes/authRoutes";
+import {errorHandler} from "./middlewares/errorHandler";
 
 // env variables setup
 dotenv.config();
@@ -23,5 +24,8 @@ if (process.env.NODE_ENV === "development") {
       // Enable Swagger documentation only in development environment
     setupSwagger(app);
 }
+
+// Centralized error handler
+app.use(errorHandler);
 
 export default app;

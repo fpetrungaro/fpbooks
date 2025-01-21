@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "fa0faa42-bf5f-4148-adb2-334ca6cf0b2d",
+  "id": "1ecefa90-8398-488b-a8ad-40e56e97c4f5",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "books": {
@@ -30,9 +30,9 @@
         },
         "published_date": {
           "name": "published_date",
-          "type": "timestamp",
+          "type": "date",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "genre": {
@@ -43,7 +43,15 @@
           "autoincrement": false
         }
       },
-      "indexes": {},
+      "indexes": {
+        "title_idx": {
+          "name": "title_idx",
+          "columns": [
+            "title"
+          ],
+          "isUnique": false
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {
         "books_id": {

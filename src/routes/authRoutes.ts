@@ -1,26 +1,15 @@
 import express from "express";
-import { UserService } from "../services/userService";
+import { errorHandler } from "../middlewares/errorHandler";
+import {validateUserRegistration} from "../middlewares/userValidator";
+import {login, register} from "../controllers/userController";
+
 
 const router = express.Router();
-const userService = new UserService();
 
-router.post("/register", async (req, res) => {
-  try {
-    const result = await userService.register(req.body.username, req.body.password);
-    res.status(201).json(result);
-  } catch (err) {
-    res.status(400).json({ error: (err as any).message });
-  }
-});
+router.post("/register", validateUserRegistration, register);
+router.post("/login",  login)
 
-router.post("/login", async (req, res) => {
-  try {
-    const result = await userService.login(req.body.username, req.body.password);
-    res.status(200).json(result);
-  } catch (err) {
-    res.status(401).json({ error: (err as any).message });
-  }
-});
 
+router.use(errorHandler)
 export default router;
 

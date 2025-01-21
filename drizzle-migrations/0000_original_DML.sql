@@ -2,7 +2,7 @@ CREATE TABLE `books` (
 	`id` serial AUTO_INCREMENT NOT NULL,
 	`title` varchar(50) NOT NULL,
 	`author` varchar(50) NOT NULL,
-	`published_date` timestamp,
+	`published_date` date NOT NULL,
 	`genre` varchar(20) NOT NULL,
 	CONSTRAINT `books_id` PRIMARY KEY(`id`),
 	CONSTRAINT `books_title_unique` UNIQUE(`title`)
@@ -15,3 +15,5 @@ CREATE TABLE `users` (
 	CONSTRAINT `users_id` PRIMARY KEY(`id`),
 	CONSTRAINT `users_username_unique` UNIQUE(`username`)
 );
+--> statement-breakpoint
+CREATE INDEX `title_idx` ON `books` (`title`);
