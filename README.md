@@ -71,16 +71,15 @@ Containerization: Docker
 Docker installed
 
 Create a `.env.production` file in the root of the project.
-This file contains sensitive information, please contact fpetrungaro (the author).
 
 ```text
 NODE_ENV=production
 DB_HOST=database
 DB_USER=root
-DB_PASSWORD=<MY_PASSWORD>
+DB_PASSWORD=<Set here your DB password(any password is fine)>
 DB_NAME=fp_books_db
 DB_PORT=3306
-JWT_SECRET=<MY_SECRET>
+JWT_SECRET=<Set here your secret (any password is fine)>
 LOG_LEVEL=info
 ```
 
@@ -111,7 +110,8 @@ http://localhost:3001/api-docs
 
 ### Pre-requisites
 
-Node and NPM installed
+-Node and NPM installed
+-MySQL installed
 
 ### Project setup
 
@@ -127,31 +127,29 @@ Create Mysql database, e.g.
 CREATE DATABASE fp_books_db;
 ```
 Create `.env.development` and `.env.test` files in the root of the project.
-Those files contain sensitive information, please contact fpetrungaro (the author).
 
 `.env.development`
 ```text
 NODE_ENV=development
 DB_HOST=localhost
 DB_USER=root
-DB_PASSWORD=<MY_PASSWORD>
+DB_PASSWORD=<MySQL root user password>
 DB_NAME=fp_books_db
 DB_PORT=3306
-JWT_SECRET=<MY_SECRET>
+JWT_SECRET=<Set here your secret (any password is fine)>
 ```
 `.env.test`
 ```text
 NODE_ENV=test
 DB_HOST=localhost
 DB_USER=root
-DB_PASSWORD=<MY_PASSWORD>
+DB_PASSWORD=<MySQL root user password>
 DB_NAME=test_fp_books_db
 DB_PORT=3306
-JWT_SECRET=<MY_SECRET>
+JWT_SECRET=<Set here your secret (any password is fine)>
 LOG_LEVEL=silly
 ```
 
-Please note: the root user password of mysql user must be the same of the one specified in those files
 
 Run migrations
 

@@ -5,13 +5,6 @@ import * as dotenv from "dotenv";
 const envFile = `.env.${process.env.NODE_ENV || "development"}`;
 dotenv.config({ path: envFile });
 
-console.log(`Using environment file: ${envFile}`);
-console.log("DB host: ", process.env.DB_HOST);
-console.log("DB user: ", process.env.DB_USER);
-console.log("DB password: ", process.env.DB_PASSWORD);
-console.log("DB database: ", process.env.DB_NAME);
-console.log("DB port: ", process.env.DB_PORT);
-
 export default defineConfig({
   dialect: "mysql",
   schema: "./src/models",
@@ -25,6 +18,3 @@ export default defineConfig({
     port: Number(process.env.DB_PORT) || 3306, // Set a default port
   },
 });
-
-
-
