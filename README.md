@@ -8,11 +8,14 @@ Book Management API - one App to read them all
 
 - [User management and Authorization](src/services/userService.ts)
 - [Full GitHub pipeline with build, unit tests, docker deploy, integration tests for deployment readiness](.github/workflows/workflow-main.yml)
-- [Rate limiting to limit API calls](src/services/bookService.ts)
+- [Rate limiting to limit API calls](src/middlewares/rateLimiter.ts)
+- [Centralized Error Handling](src/middlewares/errorHandler.ts)
+- [Centralized Validators](src/middlewares/bookValidator.ts)
 - [Advanced search with pagination, filtering and sorting](src/services/bookService.ts)
 - [Mysql Routine generateData.sql to populate Books table](script/generateData.sql)
-- [Production and dev environments clearly separated](.env.development)
+- Separate environments for test, development and production(separate env files)
 - [Swagger docs](src/config/swagger.ts)
+
 
 ## Project Structure
 
