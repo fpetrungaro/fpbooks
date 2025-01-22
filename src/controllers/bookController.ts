@@ -47,10 +47,6 @@ export const getBookById = async (req: Request, res: Response, next: NextFunctio
     try {
         logger.debug("getBookById");
         const book = await bookService.getBookById(parseInt(req.params.id));
-        if (!book) {
-            res.status(404).json({message: "Book not found"});
-            return
-        }
         res.json(book);
     } catch (e) {
         next(e);

@@ -74,7 +74,11 @@ export class BookService {
 
     async getBookById(id: number) {
         logger.debug("service.getBookById: ", id);
-        return db.select().from(books).where(eq(books.id, id)).execute();
+        let existingBook = await db.select().from(books).where(eq(books.id, id)).execute();
+        if (!existingBook.length) {
+            throw {status: 404, message: "Book not found"};
+        }
+        return existingBook;
     }
 
     async createBook(bookData: any) {

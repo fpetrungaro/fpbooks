@@ -35,7 +35,7 @@ describe("DELETE /api/books - Integration Tests", () => {
 
     afterAll(async () => {
         await db.delete(books).execute();
-        jest.resetModules();
+        
     });
 
     test("should delete a book successfully", async () => {
@@ -68,7 +68,6 @@ describe("POST /api/books - Integration Tests", () => {
 
     afterAll(async () => {
         await db.delete(books).execute();
-        jest.resetModules();
     });
 
     test("A book should be created", async () => {
@@ -179,7 +178,6 @@ describe("GET /api/books - Integration Tests", () => {
 
     afterAll(async () => {
         await db.delete(books).execute();
-        jest.resetModules();
     });
 
     it("should return a paginated list of books", async () => {
@@ -260,7 +258,7 @@ describe("PUT /api/books - Integration Tests", () => {
 
     afterAll(async () => {
         await db.delete(books).execute();
-        jest.resetModules();
+        
     });
 
     test("should update a book successfully", async () => {
@@ -298,7 +296,5 @@ describe("PUT /api/books - Integration Tests", () => {
         expect(res.body.message).toBe("A book with this title already exists");
     });
 });
-
-
 
 
