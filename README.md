@@ -1,5 +1,22 @@
 # fpbooks
 
+- [Introduction](#introduction)
+- [Main Features](#main-features)
+- [Project Structure](#project-structure)
+- [Tech Stack](#tech-stack)
+- [Getting started](#getting-started)
+   * [Pre-requisites](#pre-requisites)
+   * [Project setup](#project-setup)
+   * [Before starting the app for the first time](#before-starting-the-app-for-the-first-time)
+   * [Starting the app in dev](#starting-the-app-in-dev)
+- [Tests](#tests)
+   * [First time running the tests](#first-time-running-the-tests)
+- [Docker local deployment (production mode)](#docker-local-deployment-production-mode)
+   * [Pre-requisite](#pre-requisite)
+   * [Commands](#commands)
+   * [Connect to deployed app](#connect-to-deployed-app)
+- [Github pipeline](#github-pipeline)
+
 ## Introduction
 
 Book Management API - one App to read them all
