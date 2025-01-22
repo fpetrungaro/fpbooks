@@ -127,7 +127,7 @@ Create Mysql database, e.g.
 CREATE DATABASE fp_books_db;
 ```
 Create `.env.development` and `.env.test` files in the root of the project.
-Those fileS contain sensitive information, please contact fpetrungaro (the author).
+Those files contain sensitive information, please contact fpetrungaro (the author).
 
 `.env.development`
 ```text
