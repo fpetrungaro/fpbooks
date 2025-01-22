@@ -127,7 +127,7 @@ Create Mysql database, e.g.
 ```sql
 CREATE DATABASE fp_books_db;
 ```
-Create `.env.development` and `.env.test` files in the root of the project.
+Create `.env.development` file in the root of the project.
 
 `.env.development`
 ```text
@@ -139,18 +139,6 @@ DB_NAME=fp_books_db
 DB_PORT=3306
 JWT_SECRET=<Set here your secret (any password is fine)>
 ```
-`.env.test`
-```text
-NODE_ENV=test
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=<MySQL root user password>
-DB_NAME=test_fp_books_db
-DB_PORT=3306
-JWT_SECRET=<Set here your secret (any password is fine)>
-LOG_LEVEL=silly
-```
-
 
 Run migrations
 
@@ -185,11 +173,24 @@ Create Mysql database, e.g.
 ```sql
 CREATE DATABASE test_fp_books_db;
 ```
+Create a `.env.test` file in the root of the project:
+
+`.env.test`
+```text
+NODE_ENV=test
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=<MySQL root user password>
+DB_NAME=test_fp_books_db
+DB_PORT=3306
+JWT_SECRET=<Set here your secret (any password is fine)>
+LOG_LEVEL=silly
+```
+
 
 ```sh
 NODE_ENV=test drizzle-kit generate && NODE_ENV=test drizzle-kit migrate
 ```
-
 
 Run integration + unit test
 ```shell
