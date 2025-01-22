@@ -110,9 +110,8 @@ http://localhost:3001/api-docs
 
 ### Pre-requisites
 
--Node and NPM installed
-
--MySQL installed
+#Node and NPM installed
+#MySQL installed
 
 ### Project setup
 
