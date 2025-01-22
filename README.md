@@ -93,7 +93,7 @@ docker compose --env-file .env.production up --build -d
 ### Connect to deployed app
 Use 3001 port
 
-```text
+```http request
 http://localhost:3001
 ```
 
@@ -103,7 +103,7 @@ http://localhost:3001/api-docs
 ```
 ![swagger](docs/swagger.png)
 
-- Register a user and login in order to generate a JT token (Auth APIs)
+- Register a user and login in order to generate a JWT token (Auth APIs)
 - Save it to swagger and test the Books API
 
 ## Development mode
@@ -111,6 +111,7 @@ http://localhost:3001/api-docs
 ### Pre-requisites
 
 -Node and NPM installed
+
 -MySQL installed
 
 ### Project setup
