@@ -27,7 +27,7 @@ export class UserService {
   async login(username: string, password: string) {
     const user = await db.select().from(users).where(eq(users.username, username)).execute();
     if (!user || user.length === 0 || !(await bcrypt.compare(password, user[0].password))) {
-      throw new Error("Invalid credentials");
+      throw {status: 401, message: "Invalid credentials"};
     }
 
     const token = jwt.sign({ id: user[0].id, username: user[0].username }, SECRET_KEY, { expiresIn: "4h" });

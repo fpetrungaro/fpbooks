@@ -1,6 +1,6 @@
 import {db} from "../config/db";
 import {books} from "../models/book";
-import {and, like, gte, lte, desc, asc, eq} from "drizzle-orm";
+import {and, like, gte, lte, desc, asc, eq, not} from "drizzle-orm";
 import logger from "../utils/logger";
 
 const MAX_LIMIT = 1000;
@@ -84,11 +84,41 @@ export class BookService {
 
     async updateBook(id: number, bookData: any) {
         logger.debug("service.updateBook: ", id, bookData);
+
+        // Check if book exists
+        const existingBook = await db.select().from(books).where(eq(books.id, id)).execute();
+        if (!existingBook.length) {
+            throw {status: 404, message: "Book not found"};
+        }
+
+        // Check for duplicate title (excluding the current book)
+        if (bookData.title) {
+            const duplicateBook = await db
+                .select()
+                .from(books)
+                .where(and(eq(books.title, bookData.title), not(eq(books.id, id))))
+                .execute();
+
+            if (duplicateBook.length) {
+                throw {status: 400, message: "A book with this title already exists"};
+            }
+        }
+
         return db.update(books).set(bookData).where(eq(books.id, id)).execute();
+
+
     }
 
     async deleteBook(id: number) {
         logger.debug("service.deleteBook: ", id);
+
+        // Check if book exists before deleting
+        const existingBook = await db.select().from(books).where(eq(books.id, id)).execute();
+        if (!existingBook.length) {
+            throw {status: 404, message: "Book not found"};
+        }
+
         return db.delete(books).where(eq(books.id, id)).execute();
     }
+
 }

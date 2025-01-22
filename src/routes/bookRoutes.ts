@@ -9,7 +9,7 @@ import {
 import {authenticateJWT} from "../middlewares/authMiddleware";
 import {validateBook} from "../middlewares/bookValidator";
 import {errorHandler} from "../middlewares/errorHandler";
-import {apiLimiter} from "../middlewares/reteLimiter";
+import {apiLimiter} from "../middlewares/rateLimiter";
 import {validateBookQueryParams} from "../middlewares/bookQueryValidator";
 
 const router = express.Router();

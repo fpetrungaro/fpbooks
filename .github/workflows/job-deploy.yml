@@ -67,6 +67,6 @@ jobs:
           docker exec book-api npm run test:integration
 
 
-      - name: Run AWS deploy
+      - name: Run AWS deploy - TODO
         run: |
           echo "TODO" 
