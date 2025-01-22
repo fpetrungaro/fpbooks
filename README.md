@@ -104,7 +104,7 @@ http://localhost:3001/api-docs
 ![swagger](docs/swagger.png)
 
 - Register a user and login in order to generate a JWT token (Auth APIs)
-- Save it to swagger and test the Books API
+- Save the token to Swagger and test the Books API
 
 ## Development mode
 
