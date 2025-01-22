@@ -27,9 +27,9 @@ BEGIN
         END;
 
         -- Insert a book with unique title
-        INSERT INTO books (title, genre, author, publishedDate)
+        INSERT INTO books (title, genre, author, published_date)
         VALUES (
-            CONCAT(prefix, '_', FLOOR(RAND() * 1000000)),
+            CONCAT(prefix, i, '_', FLOOR(RAND() * 1000000)),
             genre,
             CONCAT('Author_', FLOOR(RAND() * 100)),
             DATE_SUB(NOW(), INTERVAL FLOOR(RAND() * 3650) DAY)
@@ -40,5 +40,3 @@ BEGIN
 END //
 
 DELIMITER ;
-
-
