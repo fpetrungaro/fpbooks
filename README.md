@@ -5,16 +5,16 @@
 - [Project Structure](#project-structure)
 - [Tech Stack](#tech-stack)
 - [Getting started](#getting-started)
+   * [Pre-requisite](#pre-requisite)
+   * [Commands](#commands)
+   * [Connect to deployed app](#connect-to-deployed-app)
+- [Development mode](#development-mode)
    * [Pre-requisites](#pre-requisites)
    * [Project setup](#project-setup)
    * [Before starting the app for the first time](#before-starting-the-app-for-the-first-time)
    * [Starting the app in dev](#starting-the-app-in-dev)
 - [Tests](#tests)
    * [First time running the tests](#first-time-running-the-tests)
-- [Docker local deployment (production mode)](#docker-local-deployment-production-mode)
-   * [Pre-requisite](#pre-requisite)
-   * [Commands](#commands)
-   * [Connect to deployed app](#connect-to-deployed-app)
 - [Github pipeline](#github-pipeline)
 
 ## Introduction
@@ -67,6 +67,48 @@ Containerization: Docker
 
 ## Getting started
 
+### Pre-requisite
+Docker installed
+
+Create a `.env.production` file in the root of the project.
+This file contains sensitive information, please contact fpetrungaro (the author).
+
+```text
+NODE_ENV=production
+DB_HOST=database
+DB_USER=root
+DB_PASSWORD=<MY_PASSWORD>
+DB_NAME=fp_books_db
+DB_PORT=3306
+JWT_SECRET=<MY_SECRET>
+LOG_LEVEL=info
+```
+
+### Commands
+
+```shell
+docker-compose down -v
+docker compose --env-file .env.production up --build -d
+```
+
+### Connect to deployed app
+Use 3001 port
+
+```text
+http://localhost:3001
+```
+
+Swagger documentation available at
+```http request
+http://localhost:3001/api-docs
+```
+![swagger](docs/swagger.png)
+
+- Register a user and login in order to generate a JT token (Auth APIs)
+- Save it to swagger and test the Books API
+
+## Development mode
+
 ### Pre-requisites
 
 Node and NPM installed
@@ -84,12 +126,39 @@ Create Mysql database, e.g.
 ```sql
 CREATE DATABASE fp_books_db;
 ```
+Create `.env.development` and `.env.test` files in the root of the project.
+Those fileS contain sensitive information, please contact fpetrungaro (the author).
+
+`.env.development`
+```text
+NODE_ENV=development
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=<MY_PASSWORD>
+DB_NAME=fp_books_db
+DB_PORT=3306
+JWT_SECRET=<MY_SECRET>
+```
+`.env.test`
+```text
+NODE_ENV=test
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=<MY_PASSWORD>
+DB_NAME=test_fp_books_db
+DB_PORT=3306
+JWT_SECRET=<MY_SECRET>
+LOG_LEVEL=silly
+```
+
+Please note: the root user password of mysql user must be the same of the one specified in those files
 
 Run migrations
 
 ```shell
 npm run migration:development
 ```
+
 ### Starting the app in dev
 
 ```shell
@@ -106,9 +175,22 @@ Swagger documentation available at
 ```http request
 http://localhost:3000/api-docs
 ```
-![swagger](docs/swagger.png)
+
 
 ## Tests
+
+### First time running the tests
+First time before running the test:
+
+Create Mysql database, e.g.
+```sql
+CREATE DATABASE test_fp_books_db;
+```
+
+```sh
+NODE_ENV=test drizzle-kit generate && NODE_ENV=test drizzle-kit migrate
+```
+
 
 Run integration + unit test
 ```shell
@@ -124,38 +206,6 @@ Run integration test
 ```shell
 npm test:integration
 ```
-
-### First time running the tests
-First time before running the test:
-
-Create Mysql database, e.g.
-```sql
-CREATE DATABASE test_fp_books_db;
-```
-
-```sh
-NODE_ENV=test drizzle-kit generate && NODE_ENV=test drizzle-kit migrate
-```
-
-## Docker local deployment (production mode)
-
-### Pre-requisite
-Docker installed
-
-### Commands
-
-```shell
-docker-compose down -v
-docker compose --env-file .env.production up --build -d
-```
-
-### Connect to deployed app
-Use 3001 port, for example
-
-```text
-http://localhost:3000/api-docs
-```
-
 
 ## Github pipeline
 Available at

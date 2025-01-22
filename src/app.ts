@@ -20,10 +20,10 @@ app.use("/api/books", bookRoutes);
 // auth routes
 app.use("/api/auth", authRoutes);
 
-if (process.env.NODE_ENV === "development") {
-      // Enable Swagger documentation only in development environment
-    setupSwagger(app);
-}
+//TODO: remove for production
+// Enable Swagger documentation
+setupSwagger(app);
+
 
 // Centralized error handler
 app.use(errorHandler);
